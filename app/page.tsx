@@ -7,7 +7,7 @@ import Action from "./components/Action";
 import ResearchSummaryPage from "./components/ResearchSummaryPage";
 
 export default function Page() {
-  const { ready, authenticated, login, logout, user } = usePrivy();
+  const {  authenticated, login, logout, user } = usePrivy();
 
   // Get the connected wallet address
   const walletAddress = user?.wallet?.address;

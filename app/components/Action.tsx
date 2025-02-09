@@ -97,7 +97,7 @@ export default function Action() {
                     <span className="font-mono text-sm">AI</span>
                   </button>
                   <h2 className="text-xs font-medium text-gray-900 mb-4">
-                    "Advancements in CRISPR Technology for Treating Genetic Disorders"
+                  &quot;Advancements in CRISPR Technology for Treating Genetic Disorders&quot;
                   </h2>
                   <p className="text-gray-600 leading-relaxed text-xs">
                     Recent breakthroughs in CRISPR-based gene editing have revolutionized the treatment of genetic

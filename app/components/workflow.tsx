@@ -29,7 +29,7 @@ export function Workflow() {
         />
         <WorkflowCard
           icon={<VerifyBadgeIcon />}
-          title="Predicate Verification"
+          title="Predicate AVS Verification"
           description="EigenLayer verifies key claims in the summary"
         />
         <WorkflowCard
