@@ -1,6 +1,22 @@
-import pirspecua from '../public/pirspecua.png'
-import { Features } from './components/features'
+"use client";
+
+import { usePrivy } from "@privy-io/react-auth";
+import { Features } from "./components/features";
+import { Workflow } from "./components/workflow";
+import Action from "./components/Action";
+import ResearchSummaryPage from "./components/ResearchSummaryPage";
+
 export default function Page() {
+  const { ready, authenticated, login, logout, user } = usePrivy();
+
+  // Get the connected wallet address
+  const walletAddress = user?.wallet?.address;
+
+  // Function to truncate the address (e.g., 0x1234...abcd)
+  const truncateAddress = (address: string) => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  };
+
   return (
     <>
     <main className="min-h-screen w-full relative overflow-hidden">
@@ -8,7 +24,7 @@ export default function Page() {
       <div
         className="absolute top-0 right-0 w-[1300px] h-[1300px] bg-no-repeat bg-contain z-0 opacity-50"
         style={{
-          backgroundImage: `url('/pirspecua.png')`, // Use a relative path from /public
+          backgroundImage: `url('/pirspecua.png')`,
           backgroundPosition: "right top",
         }}
       />
@@ -17,16 +33,40 @@ export default function Page() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation */}
         <nav className="flex justify-between items-center py-8">
-          <h1 className="text-xl font-normal">Pirspecua Ai</h1>
-          <button className="bg-black text-white px-6 py-2 rounded-full text-sm">Connect Wallet</button>
+          <h1 className="text-xl font-normal">PerspicuaAI</h1>
+
+          {authenticated ? (
+            <div className="flex items-center space-x-4">
+              {/* Show Truncated Wallet Address */}
+              <span className="bg-gray-200 text-gray-900 px-4 py-2 rounded-full text-sm">
+                {truncateAddress(walletAddress || "")}
+              </span>
+
+              {/* Logout Button */}
+              <button
+                onClick={logout}
+                className="bg-red-500 text-white px-6 py-2 rounded-full text-sm"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={login}
+              className="bg-black text-white px-6 py-2 rounded-full text-sm"
+            >
+              Connect Wallet
+            </button>
+          )}
         </nav>
 
         {/* Hero Section */}
         <div className="mt-24 max-w-3xl">
-          <h2 className="text-[56px] leading-[1.2] font-normal mb-6">Decentralized AI-Powered Research Insights</h2>
+          <h2 className="text-[56px] leading-[1.2] font-normal mb-6">
+            Decentralized AI-Powered Research Insights
+          </h2>
           <p className="text-gray-600 text-xl mb-12">
-            Cut through the noise. Get AI-generated, verified, and decentralized research summaries for faster knowledge
-            discovery.
+            Cut through the noise. Get AI-generated, verified, and decentralized research summaries for faster knowledge discovery.
           </p>
 
           {/* Search Bar */}
@@ -58,8 +98,10 @@ export default function Page() {
         </div>
       </div>
     </main>
-      <Features/>
+    <Features/>
+    <Workflow />
+    <Action />
+     <ResearchSummaryPage />
     </>
-  )
+  );
 }
-
